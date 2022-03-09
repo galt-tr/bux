@@ -6,7 +6,6 @@ import (
 
 	"github.com/BuxOrg/bux/utils"
 	"github.com/bitcoinschema/go-bitcoin/v2"
-	"github.com/libsv/go-bk/bip32"
 )
 
 func (c *Client) NewPaymailAddress(ctx context.Context, key, address string, opts ...ModelOps) (*PaymailAddress, error) {
@@ -18,14 +17,19 @@ func (c *Client) NewPaymailAddress(ctx context.Context, key, address string, opt
 		return nil, err
 	}
 
-	var paymailKey *bip32.ExtendedKey
-	paymailKey, err = bitcoin.GetHDKeyChild(xPub, utils.ChainExternal)
+	paymailExternalKey, err := bitcoin.GetHDKeyChild(xPub, utils.ChainExternal)
+	if err != nil {
+		return nil, err
+	}
+
+	paymailInternalKey, err := bitcoin.GetHDKeyChild(xPub, utils.ChainInternal)
 	if err != nil {
 		return nil, err
 	}
 
 	paymailAddress.XPubID = utils.Hash(key)
-	paymailAddress.ExternalXPubKey = paymailKey.String()
+	paymailAddress.ExternalXPubKey = paymailExternalKey.String()
+	paymailAddress.InternalXPubKey = paymailInternalKey.String()
 
 	err = paymailAddress.Save(ctx)
 	if err != nil {
