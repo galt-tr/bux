@@ -37,10 +37,11 @@ func newPaymail(paymailAddress string, opts ...ModelOps) *PaymailAddress {
 	alias, domain, _ := paymail.SanitizePaymail(paymailAddress)
 	id, _ := utils.RandomHex(32)
 	p := &PaymailAddress{
-		Alias:  alias,
-		Domain: domain,
-		ID:     id,
-		Model:  *NewBaseModel(ModelPaymail, opts...),
+		Alias:    alias,
+		Username: alias,
+		Domain:   domain,
+		ID:       id,
+		Model:    *NewBaseModel(ModelPaymail, opts...),
 	}
 
 	// Set the xPub if detected
