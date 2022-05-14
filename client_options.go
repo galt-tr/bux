@@ -480,7 +480,7 @@ func WithPaymailSupport(domains []string, defaultFromPaymail, defaultNote string
 		}
 
 		// Add the paymail_address model in bux
-		c.addModels(modelList, &PaymailAddress{Model: *NewBaseModel(ModelPaymailAddress)})
+		c.addModels(migrateList, &PaymailAddress{Model: *NewBaseModel(ModelPaymailAddress)})
 	}
 }
 
