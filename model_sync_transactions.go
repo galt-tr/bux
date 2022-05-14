@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/BuxOrg/bux/chainstate"
@@ -410,6 +411,11 @@ func processBroadcastTransaction(ctx context.Context, syncTx *SyncTransaction) e
 	if syncTx.SyncStatus == SyncStatusPending {
 		syncTx.SyncStatus = SyncStatusReady
 	}
+
+	log.Printf("------------- HERE -----------------")
+	log.Printf("***********************************")
+	log.Printf("%#v", syncTx)
+	log.Printf("***********************************")
 
 	// Update the sync transaction record
 	if err = syncTx.Save(ctx); err != nil {
