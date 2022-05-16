@@ -3,6 +3,7 @@ package bux
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/BuxOrg/bux/datastore"
@@ -77,7 +78,6 @@ func Save(ctx context.Context, model ModelInterface) (err error) {
 			); err != nil {
 				return
 			}
-			modelToSave.NotNew()
 		}
 
 		// Commit all the model(s) if needed
@@ -92,6 +92,9 @@ func Save(ctx context.Context, model ModelInterface) (err error) {
 		var afterErr error
 		for index := range modelsToSave {
 			if modelsToSave[index].IsNew() {
+				log.Printf("SETTING %v TO NOT NEW", modelToSave[index].Name())
+				log.Printf("******************************")
+				modelToSave.NotNew()         // NOTE: calling it before this method... after created assumes its been saved already
 				modelsToSave[index].NotNew() // NOTE: calling it before this method... after created assumes it's been saved already
 				afterErr = modelsToSave[index].AfterCreated(ctx)
 			} else {
