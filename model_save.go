@@ -77,6 +77,7 @@ func Save(ctx context.Context, model ModelInterface) (err error) {
 			); err != nil {
 				return
 			}
+			modelToSave.NotNew()
 		}
 
 		// Commit all the model(s) if needed
