@@ -271,6 +271,13 @@ func (m *Xpub) AfterCreated(ctx context.Context) error {
 // AfterUpdated will fire after a successful update into the Datastore
 func (m *Xpub) AfterUpdated(ctx context.Context) error {
 	m.DebugLog("starting: " + m.Name() + " AfterUpdated hook...")
+	m.DebugLog("**************************************")
+	m.DebugLog("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	m.DebugLog("**************************************")
+	m.DebugLog(fmt.Sprintf("%#v", m))
+	m.DebugLog("**************************************")
+	m.DebugLog("**************************************")
+	m.DebugLog("**************************************")
 
 	// Store in the cache
 	if err := saveToCache(

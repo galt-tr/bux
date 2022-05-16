@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/hex"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/BuxOrg/bux/utils"
@@ -222,6 +223,10 @@ func (p *PaymailDefaultServiceProvider) createPaymailInformation(ctx context.Con
 	if err = destination.Save(ctx); err != nil {
 		return nil, "", nil, err
 	}
+
+	log.Printf("***********************")
+	log.Printf("HERE: %#v", xPub)
+	log.Printf("***********************")
 
 	// Increment and save
 	xPub.NextExternalNum++
