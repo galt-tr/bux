@@ -221,7 +221,9 @@ func (m *Xpub) incrementNextNum(ctx context.Context, chain uint32) (uint32, erro
 	}
 
 	if chain == utils.ChainInternal {
-		// increment model
+		m.NextInternalNum = newNum
+	} else {
+		m.NextExternalNum = newNum
 	}
 
 	// return the previous number, which was next num
