@@ -220,6 +220,10 @@ func (m *Xpub) incrementNextNum(ctx context.Context, chain uint32) (uint32, erro
 		return 0, err
 	}
 
+	if chain == utils.ChainInternal {
+		// increment model
+	}
+
 	// return the previous number, which was next num
 	return uint32(newNum - 1), err
 }
